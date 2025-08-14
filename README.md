@@ -20,5 +20,4 @@ This portfolio highlights my expertise in:
 
 ## Contact
 - Email: amanguptacs11@gmail.com
-- Phone: +91-9911938378
 - LinkedIn: [Your LinkedIn Profile](https://www.linkedin.com/in/aman-gupta-ab1a4aa1/)
