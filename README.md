@@ -12,7 +12,7 @@ This portfolio highlights my expertise in:
 - Team Leadership & Mentoring
 - AgriTech, FinTech, and E-commerce projects
 
-##Cover
+## Cover
 I am writing to express my interest in a mobile development leadership role. As a seasoned Principal Engineer with a decade of experience architecting and guiding scalable, high-performance mobile solutions, I believe I would bring deep technical expertise and collaborative problem-solving to your team.
 
 Over the years, I’ve sharpened my craft across AgriTech, FinTech, and E-commerce sectors, delivering impactful Android applications through Clean Architecture, MVVM, Jetpack Compose, Kotlin, and robust testing patterns. In my current role at DeHaat:
