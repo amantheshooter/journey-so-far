@@ -34,6 +34,7 @@
       --accent-light: #c5d8fc;
       --green: #34A853;
       --green-bg: rgba(52, 168, 83, 0.12);
+      --particle-color: rgba(79, 143, 247, 0.15);
       --teal: #00897B;
       --radius: 16px;
       --radius-lg: 24px;
@@ -65,6 +66,7 @@
       --nav-bg: rgba(246, 248, 250, 0.9);
       --card-bg: #FFFFFF;
       --mobile-bg: #FFFFFF;
+      --particle-color: rgba(26, 115, 232, 0.08);
     }
 
     /* THEME TOGGLE */
@@ -101,6 +103,18 @@
       transform: translateX(24px);
     }
 
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--bg);
+      transition: background 0.3s ease;
+    }
+
     /* PROFILE IMAGE HOVER */
     .profile-strip-photo img {
       transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -115,12 +129,10 @@
     }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
-      font-size: 16px;
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       cursor: none;
     }
@@ -415,6 +427,19 @@
       padding: 0;
       box-shadow: var(--shadow);
       overflow: hidden;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
     }
 
     .profile-strip-photo {
@@ -1096,13 +1121,13 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(30px) scale(0.98);
+      transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .reveal.in {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
     /* RESPONSIVE */
@@ -1845,6 +1870,87 @@
       });
     }, { threshold: 0.3 });
     counterObserver.observe(statsRow);
+
+    // PARTICLE BACKGROUND
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let w, h;
+
+    function initCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.radius = Math.random() * 2 + 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+      }
+      draw() {
+        const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color');
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+    }
+
+    function createParticles() {
+      particles = [];
+      const count = Math.floor((w * h) / 15000);
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function connectParticles() {
+      const color = getComputedStyle(document.documentElement).getPropertyValue('--particle-color');
+      const maxDist = 150;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDist) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 1 - dist / maxDist;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      connectParticles();
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+      initCanvas();
+      createParticles();
+    });
+
+    initCanvas();
+    createParticles();
+    animateParticles();
   </script>
 
 </body>
