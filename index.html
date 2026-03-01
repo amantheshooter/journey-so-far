@@ -1,756 +1,1852 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aman Gupta - Principal Engineer Portfolio</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aman Gupta — Principal Android Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #252934;
+      --border: #2e3341;
+      --text: #eef0f6;
+      --text2: #c0c5d0;
+      --muted: #8b92a5;
+      --muted2: #6b7280;
+      --accent: #4f8ff7;
+      --accent2: #3b7ae0;
+      --accent-bg: rgba(79, 143, 247, 0.12);
+      --accent-light: #c5d8fc;
+      --green: #34A853;
+      --green-bg: rgba(52, 168, 83, 0.12);
+      --teal: #00897B;
+      --radius: 16px;
+      --radius-lg: 24px;
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.15);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.15);
+      --font: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Geist', sans-serif;
+      --font-mono: 'Geist Mono', monospace;
+      --nav-bg: rgba(15, 17, 23, 0.9);
+      --card-bg: var(--surface);
+      --mobile-bg: #0f1117;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    [data-theme="light"] {
+      --bg: #F6F8FA;
+      --surface: #FFFFFF;
+      --surface2: #F1F3F4;
+      --border: #E2E5EA;
+      --text: #111318;
+      --text2: #3C4043;
+      --muted: #6B7280;
+      --muted2: #9AA0A6;
+      --accent: #1A73E8;
+      --accent2: #0D47A1;
+      --accent-bg: #E8F0FE;
+      --green-bg: #E6F4EA;
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.07), 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+      --nav-bg: rgba(246, 248, 250, 0.9);
+      --card-bg: #FFFFFF;
+      --mobile-bg: #FFFFFF;
+    }
 
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
+    /* THEME TOGGLE */
+    .theme-toggle {
+      position: relative;
+      width: 52px;
+      height: 28px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+      display: flex;
+      align-items: center;
+      padding: 0 3px;
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
+    .theme-toggle-knob {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-        }
+    [data-theme="light"] .theme-toggle-knob {
+      transform: translateX(24px);
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+    /* PROFILE IMAGE HOVER */
+    .profile-strip-photo img {
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+    .profile-strip:hover .profile-strip-photo img {
+      transform: scale(1.06);
+    }
 
-        .nav-links a:hover {
-            color: #667eea;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .hero {
-            padding: 120px 0 80px;
-            text-align: center;
-            color: white;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-        }
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s;
+    }
 
-        .hero .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
+    .cursor-ring {
+      position: fixed;
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid rgba(26, 115, 232, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+    }
 
-        .hero .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease 0.4s both;
-        }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
 
-        .contact-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-        }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
 
-        .section {
-            padding: 80px 0;
-            background: white;
-        }
+    .nav-logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 13px;
+      color: white;
+    }
 
-        .section:nth-child(even) {
-            background: #f8f9fa;
-        }
+    .nav-logo-name {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.3px;
+    }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-            position: relative;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+    }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-        }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 100px;
+      transition: background 0.15s, color 0.15s;
+      cursor: none;
+    }
 
-        .summary {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
+    .nav-links a:hover {
+      background: var(--surface2);
+      color: var(--text);
+    }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+    .nav-cta {
+      background: var(--accent) !important;
+      color: white !important;
+    }
 
-        .skill-category {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+    .nav-cta:hover {
+      background: var(--accent2) !important;
+    }
 
-        .skill-category:hover {
-            transform: translateY(-5px);
-        }
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
 
-        .skill-category h3 {
-            color: #667eea;
-            margin-bottom: 1rem;
-        }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+    }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--mobile-bg);
+      z-index: 800;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
 
-        .skill-tag {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
+    .mobile-menu.open {
+      display: flex;
+    }
 
-        .timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+    .mobile-menu a {
+      font-family: var(--font);
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      cursor: none;
+    }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(180deg, #667eea, #764ba2);
-        }
+    .mobile-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+    }
 
-        .experience-item {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 3rem;
-            position: relative;
-        }
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 120px 48px 80px;
+      gap: 72px;
+    }
 
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -11px;
-            top: 2rem;
-            width: 20px;
-            height: 20px;
-            background: #667eea;
-            border-radius: 50%;
-            box-shadow: 0 0 0 4px white;
-        }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-bg);
+      border: 1px solid rgba(52, 168, 83, 0.2);
+      color: var(--green);
+      padding: 6px 14px 6px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 28px;
+      animation: fadeUp 0.5s ease both;
+    }
 
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
 
-        .experience-title {
-            color: #333;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
+    @keyframes pulse {
 
-        .experience-company {
-            color: #667eea;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(52, 168, 83, 0.4);
+      }
 
-        .experience-duration {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
+      60% {
+        box-shadow: 0 0 0 6px rgba(52, 168, 83, 0);
+      }
+    }
 
-        .experience-achievements {
-            list-style: none;
-            margin-top: 1rem;
-        }
+    .hero-title {
+      font-family: var(--font);
+      font-size: clamp(48px, 5.5vw, 80px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -2.5px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.5s 0.1s ease both;
+    }
 
-        .experience-achievements li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
+    .hero-title .accent {
+      color: var(--accent);
+    }
 
-        .experience-achievements li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
+    .hero-desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      font-weight: 400;
+      max-width: 440px;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.5s 0.3s ease both;
+    }
 
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      font-family: var(--font-body);
+    }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
+    .btn-filled {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 2px 10px rgba(26, 115, 232, 0.3);
+    }
 
-        .project-header {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            padding: 1.5rem;
-        }
+    .btn-filled:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(26, 115, 232, 0.35);
+    }
 
-        .project-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
+    .btn-outlined {
+      border: 1.5px solid var(--border);
+      color: var(--text2);
+      background: var(--card-bg);
+    }
 
-        .project-content {
-            padding: 1.5rem;
-        }
+    .btn-outlined:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
 
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
+    /* HERO RIGHT */
+    .hero-right {
+      animation: fadeUp 0.6s 0.15s ease both;
+    }
 
-        .tech-tag {
-            background: #f0f0f0;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: #667eea;
-        }
+    .hero-card-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 380px;
+      width: 100%;
+    }
 
-        .education-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    /* Unified profile card */
+    .profile-strip {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 0;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
 
-        .education-title {
-            color: #667eea;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
+    .profile-strip-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+    }
 
-        .education-university {
-            color: #333;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
+    .profile-strip-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: var(--surface2);
+    }
 
-        .education-details {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
+    .profile-strip-info {
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-        .footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
+    .profile-strip-name {
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
 
-        .footer p {
-            margin-bottom: 1rem;
-        }
+    .profile-strip-role {
+      font-size: 14px;
+      color: var(--muted);
+    }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
+    .profile-strip-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted2);
+    }
 
-        .social-links a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            transition: transform 0.3s ease;
-        }
+    .profile-strip-meta .loc-icon {
+      font-size: 15px;
+    }
 
-        .social-links a:hover {
-            transform: scale(1.05);
-        }
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+    }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .stat {
+      text-align: center;
+    }
 
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .timeline::before {
-                left: 20px;
-            }
-            
-            .experience-item::before {
-                left: 9px;
-            }
-            
-            .experience-item {
-                margin-left: 40px;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .stat-num {
+      font-family: var(--font);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* Highlight card */
+    .hl-card {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      color: white;
+      box-shadow: 0 6px 24px rgba(26, 115, 232, 0.25);
+    }
+
+    .hl-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .hl-icon {
+      font-size: 22px;
+    }
+
+    .hl-label {
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.85;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .hl-title {
+      font-family: var(--font);
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hl-desc {
+      font-size: 13px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    /* SECTION COMMON */
+    .sc {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    .sc-white {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .sh {
+      font-family: var(--font);
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 56px;
+    }
+
+    .sh .hl {
+      color: var(--accent);
+    }
+
+    /* EXPERIENCE */
+    .exp-wrap {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .exp-tabs {
+      position: sticky;
+      top: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .exp-tab {
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: none;
+      transition: all 0.2s;
+      text-align: left;
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+    }
+
+    .exp-tab:hover {
+      background: var(--surface2);
+      color: var(--text2);
+    }
+
+    .exp-tab.active {
+      background: var(--accent-bg);
+      color: var(--accent);
+    }
+
+    .exp-panels {
+      position: relative;
+    }
+
+    .ep {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+
+    .ep.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ep-header {
+      display: flex;
+      align-items: start;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ep-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .ep-title {
+      font-family: var(--font);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .ep-company {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .ep-period {
+      font-size: 13px;
+      color: var(--muted2);
+    }
+
+    .ep-desc {
+      font-size: 15px;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .ep-achievements {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .epa {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 10px;
+    }
+
+    .epa-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .epa-text {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .epa-text strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .ep-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tc {
+      padding: 6px 12px;
+      background: var(--surface2);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text2);
+      font-family: var(--font-mono);
+    }
+
+    /* PROJECTS */
+    .proj-mosaic {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .pc {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pc:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .s8 {
+      grid-column: span 8;
+    }
+
+    .s4 {
+      grid-column: span 4;
+    }
+
+    .pc-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .pc-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .ag {
+      background: linear-gradient(135deg, #FFEAA7 0%, #FDB347 100%);
+    }
+
+    .co {
+      background: linear-gradient(135deg, #74B9FF 0%, #0984E3 100%);
+    }
+
+    .fi {
+      background: linear-gradient(135deg, #A29BFE 0%, #6C5CE7 100%);
+    }
+
+    .ec {
+      background: linear-gradient(135deg, #FD79A8 0%, #E84393 100%);
+    }
+
+    .po {
+      background: linear-gradient(135deg, #FDCB6E 0%, #E17055 100%);
+    }
+
+    .pc-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted2);
+      letter-spacing: 0.5px;
+    }
+
+    .pc-title {
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .pc-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .pc-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .sg {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sg-title {
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .sg-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .si {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--text2);
+      padding: 8px 0;
+    }
+
+    .si-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* EDUCATION */
+    .edu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .edu-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-bg);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .edu-degree {
+      font-family: var(--font);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .edu-school {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .edu-period {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .edu-badge {
+      background: var(--green-bg);
+      border: 1px solid rgba(52, 168, 83, 0.2);
+      border-radius: 12px;
+      padding: 16px 24px;
+      text-align: center;
+    }
+
+    .gpa {
+      display: block;
+      font-family: var(--font);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    .gr {
+      display: block;
+      font-size: 11px;
+      color: var(--green);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* CONTACT */
+    .contact-dark {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 100px 48px;
+    }
+
+    .contact-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .cl-eyebrow {
+      color: var(--accent-light) !important;
+    }
+
+    .contact-heading {
+      font-family: var(--font);
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .contact-sub {
+      font-size: 17px;
+      color: #9AA0A6;
+      line-height: 1.7;
+      margin-bottom: 56px;
+      max-width: 600px;
+    }
+
+    .clinks {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 700px;
+    }
+
+    .clink {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: none;
+    }
+
+    .clink:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .clink-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .ci-em {
+      background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
+    }
+
+    .ci-li {
+      background: linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
+    }
+
+    .ci-ph {
+      background: linear-gradient(135deg, #34A853 0%, #0F9D58 100%);
+    }
+
+    .clink-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted2);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .clink-val {
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      margin-top: 2px;
+    }
+
+    .clink-arrow {
+      font-size: 20px;
+      color: var(--accent);
+      margin-left: auto;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #111318;
+      color: var(--muted2);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .fl {
+      display: flex;
+      gap: 24px;
+    }
+
+    .fl a {
+      color: var(--muted2);
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: none;
+    }
+
+    .fl a:hover {
+      color: white;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 56px;
+        padding: 100px 32px 60px;
+      }
+
+      .sc {
+        padding: 80px 32px;
+      }
+
+      nav {
+        padding: 0 32px;
+      }
+
+      .exp-wrap {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .exp-tabs {
+        position: static;
+      }
+
+      .proj-mosaic {
+        grid-template-columns: 1fr;
+      }
+
+      .s8,
+      .s4 {
+        grid-column: span 1;
+      }
+
+      .edu-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .edu-badge {
+        margin: 0 auto;
+      }
+
+      .contact-dark {
+        padding: 80px 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .stat {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat:last-child {
+        border-bottom: none;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      body {
+        cursor: auto;
+      }
+
+      .cursor,
+      .cursor-ring {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">Aman Gupta</div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+
+  <!-- CURSORS -->
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="curR"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">AG</div>
+      <span class="nav-logo-name">Aman Gupta</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+      <li>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <div class="theme-toggle-knob">🌙</div>
+        </button>
+      </li>
+    </ul>
+    <button class="hamburger" id="hb">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mm">
+    <button class="mobile-close" id="mc">✕</button>
+    <a href="#about" onclick="closeMM()">About</a>
+    <a href="#experience" onclick="closeMM()">Experience</a>
+    <a href="#projects" onclick="closeMM()">Projects</a>
+    <a href="#skills" onclick="closeMM()">Skills</a>
+    <a href="#contact" onclick="closeMM()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero" id="about">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Available for new opportunities
+      </div>
+      <h1 class="hero-title">
+        Building <span class="accent">scalable</span> Android products that matter.
+      </h1>
+      <p class="hero-desc">
+        Principal Android Engineer with 10+ years of experience crafting high-performance mobile solutions for startups
+        and enterprises. Technology Leader Solving Real Business Problems. Specialized in architecting resilient systems
+        that serve millions.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-filled">Let's Talk</a>
+        <a href="#projects" class="btn btn-outlined">View Projects</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card-wrap">
+        <div class="profile-strip">
+          <div class="profile-strip-photo">
+            <img src="./my-profile.png" alt="Aman Gupta">
+          </div>
+          <div class="profile-strip-info">
+            <div class="profile-strip-name">Aman Gupta</div>
+            <div class="profile-strip-role">Principal Android Engineer · Technology Leader</div>
+            <div class="profile-strip-meta">
+              <span class="loc-icon">📍</span>
+              Gurugram, Haryana · Open to Remote
             </div>
+          </div>
         </div>
-    </nav>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <h1>Aman Gupta</h1>
-            <p class="subtitle">Principal Engineer | Android Development Leader</p>
-            <div class="contact-info">
-                <div class="contact-item">📱 +91-9911938378</div>
-                <div class="contact-item">📧 amanguptacs11@gmail.com</div>
-                <div class="contact-item">💼 <a href="https://www.linkedin.com/in/aman-gupta-ab1a4aa1/" target="_blank" style="color: white; text-decoration: none;">LinkedIn Profile</a></div>
+        <div class="stats-row" id="statsRow">
+          <div class="stat">
+            <div class="stat-num" data-target="10" data-suffix="+">0</div>
+            <div class="stat-label">Years</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-target="40" data-suffix="+">0</div>
+            <div class="stat-label">Projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-target="2" data-suffix="M+">0</div>
+            <div class="stat-label">Users</div>
+          </div>
+        </div>
+
+        <div class="hl-card">
+          <div class="hl-top">
+            <span class="hl-icon">🚀</span>
+            <span class="hl-label">Current Impact</span>
+          </div>
+          <div class="hl-title">Leading Android @ DeHaat</div>
+          <div class="hl-desc">
+            Building India's largest AgriTech platform serving 2000+ retailers across 11 states. Architecting scalable
+            solutions that digitize agriculture supply chains.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="sc-white" id="experience">
+    <div class="sc">
+      <div class="reveal">
+        <span class="eyebrow">Experience</span>
+        <h2 class="sh">Career highlights &<br><span class="hl">key contributions.</span></h2>
+      </div>
+
+      <div class="exp-wrap reveal">
+        <div class="exp-tabs">
+          <button class="exp-tab active" onclick="showExp(1, this)">DeHaat</button>
+          <button class="exp-tab" onclick="showExp(2, this)">Mydesq</button>
+          <button class="exp-tab" onclick="showExp(3, this)">Nagarro</button>
+          <button class="exp-tab" onclick="showExp(4, this)">Webkul Software</button>
+        </div>
+
+        <div class="exp-panels">
+          <!-- DeHaat -->
+          <div class="ep active" id="ep-1">
+            <div class="ep-header">
+              <div class="ep-logo">🌾</div>
+              <div>
+                <div class="ep-title">Principal Android Engineer</div>
+                <div class="ep-company">DeHaat — AgriTech Leader</div>
+                <div class="ep-period">Sept 2021 – Present · 4+ years · Gurugram, Haryana, India</div>
+              </div>
             </div>
-        </div>
-    </section>
 
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="summary">
-                <p>Seasoned Principal Engineer with 10 years of experience architecting and leading the development of scalable, high-performance mobile applications across AgriTech, FinTech, and E-commerce industries. Expert in Kotlin, Jetpack Compose, MVVM, Clean Architecture, and Android SDK. Proven track record in leading engineering teams, mentoring developers, and driving technical excellence across multiple product lines. Skilled in CI/CD, Firebase, Retrofit, Git, Jira, and Agile methodologies with a focus on strategic technical leadership and architectural decision-making.</p>
+            <div class="ep-desc">
+              Leading Android development for India's fastest-growing AgriTech platform. Architected and delivered
+              multiple mission-critical applications serving 2000+ retailers and millions of farmers across 11 Indian
+              states. Drove technical excellence through modern architecture patterns, CI/CD implementation, and
+              cross-functional collaboration.
             </div>
-        </div>
-    </section>
 
-    <section id="skills" class="section">
-        <div class="container">
-            <h2 class="section-title">Core Competencies</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Programming Languages</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Kotlin</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">XML</span>
-                        <span class="skill-tag">React Native</span>
-                        <span class="skill-tag">C</span>
-                    </div>
+            <div class="ep-achievements">
+              <div class="epa">
+                <span class="epa-icon">🎯</span>
+                <div class="epa-text">
+                  <strong>DeHaat Partner Business App:</strong> Built the flagship B2B app from ground up using Jetpack
+                  Compose, serving 2000+ retailers. Implemented Clean Architecture with MVVM, achieving 99.5% crash-free
+                  rate. Features include real-time inventory, order management, analytics dashboard, and offline-first
+                  architecture.
                 </div>
-                <div class="skill-category">
-                    <h3>Architecture & Patterns</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">MVVM</span>
-                        <span class="skill-tag">MVI</span>
-                        <span class="skill-tag">Clean Architecture</span>
-                        <span class="skill-tag">MVP</span>
-                    </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">🛰️</span>
+                <div class="epa-text">
+                  <strong>DeHaat Farmer Solution:</strong> Developed B2C platform combining Android + React Native for
+                  hybrid efficiency. Integrated satellite-based farm mapping, real-time advisory, and market linkage
+                  features impacting 1M+ farmers.
                 </div>
-                <div class="skill-category">
-                    <h3>Android Development</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Jetpack Compose</span>
-                        <span class="skill-tag">Coroutines</span>
-                        <span class="skill-tag">Room</span>
-                        <span class="skill-tag">Retrofit</span>
-                        <span class="skill-tag">Firebase</span>
-                        <span class="skill-tag">Android SDK</span>
-                    </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">📦</span>
+                <div class="epa-text">
+                  <strong>AIMS (Agri Input Management):</strong> Architected inventory management system with Room DB
+                  and WorkManager for reliable offline operations. Reduced stock discrepancies by 85% through real-time
+                  sync mechanisms.
                 </div>
-                <div class="skill-category">
-                    <h3>Leadership & Tools</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Technical Leadership</span>
-                        <span class="skill-tag">Team Mentoring</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">GitHub Actions</span>
-                        <span class="skill-tag">CI/CD</span>
-                        <span class="skill-tag">Jira</span>
-                        <span class="skill-tag">Android Studio</span>
-                    </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">⚡</span>
+                <div class="epa-text">
+                  <strong>Technical Leadership:</strong> Established CI/CD pipelines using GitHub Actions, reducing
+                  release time by 60%. Mentored team of 20+ engineers, conducted code reviews, and drove adoption of
+                  modern Android development practices.
                 </div>
+              </div>
             </div>
-        </div>
-    </section>
 
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="timeline">
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Principal Engineer</div>
-                            <div class="experience-company">DeHaat, Gurgaon</div>
-                        </div>
-                        <div class="experience-duration">Sept 2021 – Present</div>
-                    </div>
-                    <ul class="experience-achievements">
-                        <li>Lead strategic technical initiatives and architectural decisions for Android development across the organization</li>
-                        <li>Delivered 8+ key Android features, following Clean Architecture with 100% Kotlin implementation</li>
-                        <li>Led Android tech efforts across 3 Android and 1 React Native teams, improving delivery timelines by 20%</li>
-                        <li>Built and maintained 6+ CI/CD workflows using GitHub Actions, reducing QA regression suite execution time by 40%</li>
-                        <li>Collaborated with cross-functional teams on 15+ feature releases and product strategy</li>
-                        <li>Owned end-to-end feature development from PRD to delivery, including 12+ HLDs and 20+ LLDs</li>
-                        <li>Mentored 7+ junior engineers and interns, driving their professional growth and technical excellence</li>
-                        <li>Established coding standards, best practices, and technical guidelines for the Android development team</li>
-                    </ul>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Senior Software Engineer - Android</div>
-                            <div class="experience-company">Mydesq, Noida</div>
-                        </div>
-                        <div class="experience-duration">Oct 2020 – Aug 2021</div>
-                    </div>
-                    <ul class="experience-achievements">
-                        <li>Developed greenfield fintech app from scratch, defining the application architecture and implementing 7+ core feature modules</li>
-                        <li>Improved app performance by 30% and reduced ANR rate by optimizing UI rendering and lifecycle handling using MVP pattern</li>
-                        <li>Utilized Kotlin and XML for feature development and integrated App-Center and Azure DevOps for automated delivery pipelines</li>
-                    </ul>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Senior Software Engineer</div>
-                            <div class="experience-company">Nagarro, Gurgaon</div>
-                        </div>
-                        <div class="experience-duration">Aug 2019 – Sept 2020</div>
-                    </div>
-                    <ul class="experience-achievements">
-                        <li>Contributed to vehicle insurance app for Apollo initiative, enabling digital policy renewals and claims</li>
-                        <li>Worked with teams in the US and Kenya to deliver features on time, reducing turnaround by 15%</li>
-                        <li>Used FCM, Notifications, Services, and SonarQube for feature delivery and code quality</li>
-                    </ul>
-                </div>
-
-                <div class="experience-item">
-                    <div class="experience-header">
-                        <div>
-                            <div class="experience-title">Senior Software Engineer</div>
-                            <div class="experience-company">Webkul Software Pvt. Ltd., Noida</div>
-                        </div>
-                        <div class="experience-duration">Jun 2015 – July 2019</div>
-                    </div>
-                    <ul class="experience-achievements">
-                        <li>Created 5+ E-commerce Android apps for platforms like Magento, CS-Cart, and WordPress</li>
-                        <li>Engineered the Mobikul POS system from scratch for offline retail with Room DB and Java</li>
-                        <li>Led a team of 6; participated in recruitment and technical mentoring</li>
-                        <li>Implemented features like fingerprint auth, offline mode, and third-party payments</li>
-                    </ul>
-                </div>
+            <div class="ep-stack">
+              <span class="tc">Kotlin</span>
+              <span class="tc">Jetpack Compose</span>
+              <span class="tc">MVVM</span>
+              <span class="tc">Clean Architecture</span>
+              <span class="tc">Coroutines</span>
+              <span class="tc">Flow</span>
+              <span class="tc">Room</span>
+              <span class="tc">Retrofit</span>
+              <span class="tc">Dagger Hilt</span>
+              <span class="tc">Firebase</span>
+              <span class="tc">GitHub Actions</span>
+              <span class="tc">React Native</span>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title">Key Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title">DeHaat Partner Business App</div>
-                    </div>
-                    <div class="project-content">
-                        <p>Empowered 2000+ retailers across states to grow their agri-business. Built with modern Android development practices.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Kotlin</span>
-                            <span class="tech-tag">Jetpack Compose</span>
-                            <span class="tech-tag">MVVM</span>
-                            <span class="tech-tag">Clean Architecture</span>
-                            <span class="tech-tag">Retrofit</span>
-                            <span class="tech-tag">Room</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title">DeHaat Farmer Solution</div>
-                    </div>
-                    <div class="project-content">
-                        <p>Provides agri-advisory, satellite-based farm mapping, and market prices to farmers.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Kotlin</span>
-                            <span class="tech-tag">Jetpack Compose</span>
-                            <span class="tech-tag">XML</span>
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Retrofit</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title">AIMS - Agri Input Management</div>
-                    </div>
-                    <div class="project-content">
-                        <p>Comprehensive inventory management system for agricultural inputs with real-time tracking.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Kotlin</span>
-                            <span class="tech-tag">Room DB</span>
-                            <span class="tech-tag">Clean Architecture</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title">My Wealth App</div>
-                    </div>
-                    <div class="project-content">
-                        <p>Portfolio management app for financial planning and investment tracking.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Kotlin</span>
-                            <span class="tech-tag">App-Center</span>
-                            <span class="tech-tag">Azure DevOps</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title">MOBIKUL E-commerce Platform</div>
-                    </div>
-                    <div class="project-content">
-                        <p>Native mobile app builder for multiple e-commerce frameworks including Magento and CS-Cart.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Kotlin</span>
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">Retrofit</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">PHP</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title">Mobikul Stand-alone POS</div>
-                    </div>
-                    <div class="project-content">
-                        <p>Offline Point of Sale system built for retailers with comprehensive inventory management.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Room DB</span>
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">Offline Mode</span>
-                        </div>
-                    </div>
-                </div>
+          <!-- Mydesq -->
+          <div class="ep" id="ep-2">
+            <div class="ep-header">
+              <div class="ep-logo">💹</div>
+              <div>
+                <div class="ep-title">Senior Software Engineer — Android</div>
+                <div class="ep-company">Mydesq — FinTech</div>
+                <div class="ep-period">Oct 2020 – Aug 2021 · 11 months · Noida, India</div>
+              </div>
             </div>
-        </div>
-    </section>
-
-    <section id="education" class="section">
-        <div class="container">
-            <h2 class="section-title">Education</h2>
-            <div class="education-card">
-                <div class="education-title">Bachelor of Technology (Computer Science & Engineering)</div>
-                <div class="education-university">GLA University, Mathura</div>
-                <div class="education-details">
-                    <div>
-                        <strong>Duration:</strong> Aug 2011 – Jun 2015
-                    </div>
-                    <div>
-                        <strong>Grade:</strong> First Class (7.83 CGPA)
-                    </div>
+            <div class="ep-desc">
+              Developed a greenfield fintech app from scratch, defining the application architecture and implementing 7+
+              core feature modules. Improved app performance by 30% and reduced ANR rate by optimizing UI rendering and
+              lifecycle handling.
+            </div>
+            <div class="ep-achievements">
+              <div class="epa">
+                <span class="epa-icon">💹</span>
+                <div class="epa-text">
+                  <strong>My Wealth App:</strong> Developed a greenfield fintech portfolio management app from scratch,
+                  implementing 7+ core feature modules with real-time market data integration. Implemented MVP
+                  architecture and automated CI/CD using App Center, reducing release cycles by 50%.
                 </div>
-                <p style="margin-top: 1rem;"><strong>Relevant Modules:</strong> Data Structure, Operating System, Java & C</p>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">⚡</span>
+                <div class="epa-text">
+                  <strong>Performance Optimization:</strong> Improved app performance by 30% and reduced ANR rate by
+                  optimizing UI rendering and lifecycle handling using the MVP pattern.
+                </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">🔧</span>
+                <div class="epa-text">
+                  <strong>DevOps & Delivery:</strong> Utilized Kotlin and XML for feature development and integrated
+                  App-Center and Azure DevOps for automated delivery pipelines and version control.
+                </div>
+              </div>
             </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="footer">
-        <div class="container">
-            <p>Ready to collaborate? Let's build something amazing together!</p>
-            <div class="social-links">
-                <a href="tel:+919911938378">📱 Call</a>
-                <a href="mailto:amanguptacs11@gmail.com">📧 Email</a>
-                <a href="https://www.linkedin.com/in/aman-gupta-ab1a4aa1/" target="_blank">💼 LinkedIn</a>
+            <div class="ep-stack">
+              <span class="tc">Kotlin</span>
+              <span class="tc">XML</span>
+              <span class="tc">MVP</span>
+              <span class="tc">App Center</span>
+              <span class="tc">Azure DevOps</span>
+              <span class="tc">REST APIs</span>
             </div>
-            <p style="margin-top: 2rem; opacity: 0.8;">© 2025 Aman Gupta. All rights reserved.</p>
+          </div>
+
+          <!-- Nagarro -->
+          <div class="ep" id="ep-3">
+            <div class="ep-header">
+              <div class="ep-logo">🏢</div>
+              <div>
+                <div class="ep-title">Senior Software Engineer</div>
+                <div class="ep-company">Nagarro — Enterprise Digital Engineering</div>
+                <div class="ep-period">Aug 2019 – Sep 2020 · 1.2 years · Gurugram, India</div>
+              </div>
+            </div>
+            <div class="ep-desc">
+              Delivered enterprise Android solutions for global clients. Focused on modular architecture, scalability,
+              and performance optimization. Improved startup time by 35% using profiling and threading optimizations.
+            </div>
+            <div class="ep-achievements">
+              <div class="epa">
+                <span class="epa-icon">🚗</span>
+                <div class="epa-text">
+                  <strong>Apollo Vehicle Insurance App:</strong> Developed and maintained Apollo's Vehicle Insurance
+                  Android app, enabling seamless digital policy renewals and claims processing for users across multiple
+                  geographies.
+                </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">🌍</span>
+                <div class="epa-text">
+                  <strong>Cross-Functional Collaboration:</strong> Collaborated with cross-functional teams in India,
+                  the US, and Kenya, ensuring timely delivery and alignment with client requirements.
+                </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">⚡</span>
+                <div class="epa-text">
+                  <strong>Performance Optimization:</strong> Optimized app UI responsiveness and startup performance,
+                  reducing frame drops and ANRs. Improved startup time by 35% using profiling and threading
+                  optimizations.
+                </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">🔧</span>
+                <div class="epa-text">
+                  <strong>Code Quality & Architecture:</strong> Implemented MVVM architecture and Kotlin best practices,
+                  improving code scalability, maintainability, and readability. Integrated FCM, background services, and
+                  SonarQube.
+                </div>
+              </div>
+            </div>
+            <div class="ep-stack">
+              <span class="tc">Java</span>
+              <span class="tc">Kotlin</span>
+              <span class="tc">MVVM</span>
+              <span class="tc">FCM</span>
+              <span class="tc">SonarQube</span>
+              <span class="tc">REST APIs</span>
+              <span class="tc">Background Services</span>
+            </div>
+          </div>
+
+          <!-- Webkul -->
+          <div class="ep" id="ep-4">
+            <div class="ep-header">
+              <div class="ep-logo">💼</div>
+              <div>
+                <div class="ep-title">Senior Android Developer</div>
+                <div class="ep-company">Webkul Software — Product Development</div>
+                <div class="ep-period">May 2015 – July 2019 · 4.2 years · Noida, India</div>
+              </div>
+            </div>
+
+            <div class="ep-desc">
+              Specialized in building white-label e-commerce solutions and POS systems. Led development of multiple
+              production-ready applications serving 50,000+ merchants globally. Pioneered offline-first architecture
+              patterns and modular app development frameworks.
+            </div>
+
+            <div class="ep-achievements">
+              <div class="epa">
+                <span class="epa-icon">🛒</span>
+                <div class="epa-text">
+                  <strong>Mobikul E-commerce Suite:</strong> Developed native Android app builder for Magento, CS-Cart,
+                  and WordPress platforms. Shipped 50+ customized storefronts with 4.2+ Play Store rating. Implemented
+                  modular architecture enabling rapid white-labeling.
+                </div>
+              </div>
+              <div class="epa">
+                <span class="epa-icon">🏪</span>
+                <div class="epa-text">
+                  <strong>Mobikul Standalone POS:</strong> Built offline-first Point of Sale system with Room DB
+                  persistence. Enabled retailers to operate without internet connectivity, processing 10,000+ daily
+                  transactions across deployment sites.
+                </div>
+              </div>
+
+              <div class="epa">
+                <span class="epa-icon">🔧</span>
+                <div class="epa-text">
+                  <strong>Technical Innovations:</strong> Created reusable component library reducing development time
+                  by 40%. Mentored 20+ junior developers and established coding standards across the Android team.
+                </div>
+              </div>
+            </div>
+
+            <div class="ep-stack">
+              <span class="tc">Kotlin</span>
+              <span class="tc">Java</span>
+              <span class="tc">MVP</span>
+              <span class="tc">MVVM</span>
+              <span class="tc">Room DB</span>
+              <span class="tc">Retrofit</span>
+              <span class="tc">RxJava</span>
+              <span class="tc">Dagger 2</span>
+              <span class="tc">SQLite</span>
+              <span class="tc">App Center</span>
+              <span class="tc">REST APIs</span>
+            </div>
+          </div>
+
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+  <!-- PROJECTS -->
+  <div class="sc" id="projects">
+    <div class="reveal">
+      <span class="eyebrow">Projects</span>
+      <h2 class="sh">Products with<br><span class="hl">real-world impact.</span></h2>
+    </div>
+    <div class="proj-mosaic reveal">
+      <div class="pc s8">
+        <div class="pc-top">
+          <div class="pc-icon ag">🌾</div>
+          <span class="pc-num">01 — Featured</span>
+        </div>
+        <div class="pc-title">DeHaat Partner Business App</div>
+        <p class="pc-desc">Empowered 2,000+ retailers across Indian states to manage and grow their agri-businesses
+          digitally. Built with modern Android practices — real-time ordering, inventory management, analytics, and
+          offline support. One of the most comprehensive retail platforms in Indian AgriTech.</p>
+        <div class="pc-stack">
+          <span class="tc">Kotlin</span><span class="tc">Jetpack Compose</span><span class="tc">MVVM</span><span
+            class="tc">Clean Architecture</span><span class="tc">Retrofit</span><span class="tc">Room</span><span
+            class="tc">Coroutines</span>
+        </div>
+      </div>
+      <div class="pc s4">
+        <div class="pc-top">
+          <div class="pc-icon ag">🛰️</div>
+          <span class="pc-num">02</span>
+        </div>
+        <div class="pc-title">DeHaat Farmer Solution</div>
+        <p class="pc-desc">Agri-advisory, satellite-based farm mapping, and real-time market prices for farmers across
+          India. Hybrid Android + React Native.</p>
+        <div class="pc-stack"><span class="tc">Kotlin</span><span class="tc">Compose</span><span class="tc">React
+            Native</span></div>
+      </div>
+      <div class="pc s4">
+        <div class="pc-top">
+          <div class="pc-icon co">📦</div>
+          <span class="pc-num">03</span>
+        </div>
+        <div class="pc-title">AIMS — Agri Input Management</div>
+        <p class="pc-desc">Inventory management for agricultural inputs with real-time tracking and offline-first
+          reliability.</p>
+        <div class="pc-stack"><span class="tc">Kotlin</span><span class="tc">Room DB</span><span class="tc">Clean
+            Arch</span></div>
+      </div>
+      <div class="pc s4">
+        <div class="pc-top">
+          <div class="pc-icon fi">💹</div>
+          <span class="pc-num">04</span>
+        </div>
+        <div class="pc-title">My Wealth App</div>
+        <p class="pc-desc">FinTech portfolio management for financial planning and investment tracking, built with
+          automated CI/CD delivery.</p>
+        <div class="pc-stack"><span class="tc">Kotlin</span><span class="tc">MVP</span><span
+            class="tc">App-Center</span></div>
+      </div>
+      <div class="pc s4">
+        <div class="pc-top">
+          <div class="pc-icon ec">🛒</div>
+          <span class="pc-num">05</span>
+        </div>
+        <div class="pc-title">Mobikul E-commerce</div>
+        <p class="pc-desc">Native commerce app builder for Magento, CS-Cart, and WordPress. 5+ merchant storefronts
+          shipped.</p>
+        <div class="pc-stack"><span class="tc">Kotlin</span><span class="tc">Java</span><span class="tc">Retrofit</span>
+        </div>
+      </div>
+      <div class="pc s4">
+        <div class="pc-top">
+          <div class="pc-icon po">🏪</div>
+          <span class="pc-num">06</span>
+        </div>
+        <div class="pc-title">Mobikul Standalone POS</div>
+        <p class="pc-desc">Offline-first Point of Sale system for retail. Full inventory management without internet
+          dependency.</p>
+        <div class="pc-stack"><span class="tc">Java</span><span class="tc">Room DB</span><span
+            class="tc">Offline-First</span></div>
+      </div>
+    </div>
+  </div>
 
-        // Add scroll effect to navbar
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            }
-        });
+  <!-- SKILLS -->
+  <div class="sc-white" id="skills">
+    <div class="sc">
+      <div class="reveal">
+        <span class="eyebrow">Skills</span>
+        <h2 class="sh">The toolkit behind<br><span class="hl">the work.</span></h2>
+      </div>
+      <div class="skills-grid reveal">
+        <div class="sg">
+          <div class="sg-title">Languages</div>
+          <div class="sg-items">
+            <div class="si">Kotlin <span class="si-dot"></span></div>
+            <div class="si">Java <span class="si-dot"></span></div>
+            <div class="si">XML <span class="si-dot"></span></div>
+            <div class="si">React Native <span class="si-dot"></span></div>
+            <div class="si">C <span class="si-dot"></span></div>
+          </div>
+        </div>
+        <div class="sg">
+          <div class="sg-title">Architecture</div>
+          <div class="sg-items">
+            <div class="si">MVVM <span class="si-dot"></span></div>
+            <div class="si">MVI <span class="si-dot"></span></div>
+            <div class="si">Clean Architecture <span class="si-dot"></span></div>
+            <div class="si">MVP <span class="si-dot"></span></div>
+          </div>
+        </div>
+        <div class="sg">
+          <div class="sg-title">Android SDK</div>
+          <div class="sg-items">
+            <div class="si">Jetpack Compose <span class="si-dot"></span></div>
+            <div class="si">Coroutines <span class="si-dot"></span></div>
+            <div class="si">Room <span class="si-dot"></span></div>
+            <div class="si">Retrofit <span class="si-dot"></span></div>
+            <div class="si">Firebase <span class="si-dot"></span></div>
+            <div class="si">Android SDK <span class="si-dot"></span></div>
+          </div>
+        </div>
+        <div class="sg">
+          <div class="sg-title">DevOps & Tools</div>
+          <div class="sg-items">
+            <div class="si">GitHub Actions <span class="si-dot"></span></div>
+            <div class="si">CI/CD <span class="si-dot"></span></div>
+            <div class="si">Git <span class="si-dot"></span></div>
+            <div class="si">Jira <span class="si-dot"></span></div>
+            <div class="si">Android Studio <span class="si-dot"></span></div>
+            <div class="si">SonarQube <span class="si-dot"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+  <!-- EDUCATION -->
+  <div class="sc">
+    <div class="reveal">
+      <span class="eyebrow">Education</span>
+      <h2 class="sh">The foundation.</h2>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-degree">B.Tech — Computer Science & Engineering</div>
+        <div class="edu-school">GLA University · Mathura</div>
+        <div class="edu-period">August 2011 – June 2015 · Data Structures · Operating Systems · Java · C</div>
+      </div>
+      <div class="edu-badge">
+        <span class="gpa">7.83</span>
+        <span class="gr">CGPA · First Class</span>
+      </div>
+    </div>
+  </div>
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+  <!-- CONTACT -->
+  <div class="contact-dark">
+    <div class="contact-wrap" id="contact">
+      <div class="reveal">
+        <span class="eyebrow cl-eyebrow">Contact</span>
+        <h2 class="contact-heading">Let's build<br>something <span class="hl">great.</span></h2>
+        <p class="contact-sub">Looking for a technical leader, architect, or hands-on engineer? I'd love to hear what
+          you're working on.</p>
+      </div>
+      <div class="clinks reveal">
+        <a href="mailto:amanguptacs11@gmail.com" class="clink">
+          <div class="clink-icon ci-em">✉️</div>
+          <div>
+            <div class="clink-label">Email</div>
+            <div class="clink-val">amanguptacs11@gmail.com</div>
+          </div>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/aman-gupta-ab1a4aa1/" target="_blank" class="clink">
+          <div class="clink-icon ci-li">💼</div>
+          <div>
+            <div class="clink-label">LinkedIn</div>
+            <div class="clink-val">aman-gupta-ab1a4aa1</div>
+          </div>
+          <span class="clink-arrow">→</span>
+        </a>
+        <a href="tel:+919911938378" class="clink">
+          <div class="clink-icon ci-ph">📱</div>
+          <div>
+            <div class="clink-label">Phone</div>
+            <div class="clink-val">+91 99119 38378</div>
+          </div>
+          <span class="clink-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
 
-        // Observe all sections for animation
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
-        });
-    </script>
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Aman Gupta. All rights reserved.</span>
+    <div class="fl">
+      <a href="mailto:amanguptacs11@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/aman-gupta-ab1a4aa1/" target="_blank">LinkedIn</a>
+      <a href="tel:+919911938378">Phone</a>
+    </div>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cur = document.getElementById('cur');
+    const curR = document.getElementById('curR');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+    });
+    (function animR() {
+      rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+      curR.style.left = rx + 'px'; curR.style.top = ry + 'px';
+      requestAnimationFrame(animR);
+    })();
+
+    // MOBILE MENU
+    document.getElementById('hb').onclick = () => document.getElementById('mm').classList.add('open');
+    document.getElementById('mc').onclick = () => document.getElementById('mm').classList.remove('open');
+    function closeMM() { document.getElementById('mm').classList.remove('open'); }
+
+    // EXP TABS
+    function showExp(id, el) {
+      document.querySelectorAll('.ep').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.exp-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('ep-' + id).classList.add('active');
+      el.classList.add('active');
+    }
+
+    // SCROLL REVEAL
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    // THEME TOGGLE
+    const themeToggle = document.getElementById('themeToggle');
+    const knob = themeToggle.querySelector('.theme-toggle-knob');
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      knob.textContent = theme === 'light' ? '☀️' : '🌙';
+      localStorage.setItem('theme', theme);
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // ANIMATED COUNTERS
+    let countersAnimated = false;
+    const statsRow = document.getElementById('statsRow');
+    function animateCounters() {
+      if (countersAnimated) return;
+      countersAnimated = true;
+      const counters = statsRow.querySelectorAll('.stat-num[data-target]');
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const suffix = counter.getAttribute('data-suffix') || '';
+        const duration = 1800;
+        let start = null;
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          const progress = Math.min((timestamp - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(eased * target);
+          counter.textContent = current + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            counter.textContent = target + suffix;
+          }
+        }
+        requestAnimationFrame(step);
+      });
+    }
+    const counterObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !countersAnimated) {
+          animateCounters();
+          counterObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    counterObserver.observe(statsRow);
+  </script>
+
 </body>
+
 </html>
